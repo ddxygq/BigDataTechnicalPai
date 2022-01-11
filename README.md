@@ -4,6 +4,18 @@
 
 
 
+[toc]
+
+
+
+## 大数据组件安装大全
+
+![](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/2022/01/06/22:36:40-bigdata-install.png)
+
+获取方式：关注公众号`大数据技术派`，回复关键字`大数据组件安装`即可获得。
+
+
+
 ## 大数据技术
 
 [干货，主流大数据技术总结](https://mp.weixin.qq.com/s/T1HFfKkpQHH7w6-wlAwF9A)
