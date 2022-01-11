@@ -4,10 +4,6 @@
 
 
 
-[toc]
-
-
-
 ## 大数据组件安装大全
 
 ![](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/2022/01/06/22:36:40-bigdata-install.png)
