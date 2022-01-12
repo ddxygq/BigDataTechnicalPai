@@ -1,7 +1,14 @@
-# BigDataTechnicalPai
+# 大数据技术派
 
-#### 介绍
 大数据技术派，分享优质文章，技术资料，包括但不限于主流的大数据技术：Hadoop、Kafka、Hbase、Flink、Spark等。
+
+
+
+## 大数据组件安装大全
+
+![](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/2022/01/06/22:36:40-bigdata-install.png)
+
+获取方式：关注公众号`大数据技术派`，回复关键字`大数据组件安装`即可获得。
 
 
 
@@ -160,9 +167,15 @@
 
 
 
-## ## 十、程序人生
+## 十、程序人生
 
 [工作三年的一些感悟](https://mp.weixin.qq.com/s/QpyRuXcbAg7o8g-oZqxnqQ)
+
+## 十一、微信公众号
+
+我的微信：`ddxygq`，公众号：大数据技术派。
+
+![](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/2021/12/29/22:38:47-ikeguang2.jpg)
 
 
 
