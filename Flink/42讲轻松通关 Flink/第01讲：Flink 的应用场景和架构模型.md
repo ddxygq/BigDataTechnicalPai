@@ -218,18 +218,10 @@ Flink 支持了多种窗口模型比如**滚动窗口（Tumbling Window）、滑
 
 
 
-[点击这里下载本课程源码](https://github.com/wangzhiwubigdata/quickstart)。
+[点击这里下载本课程源码](https://gitee.com/ddxygq/BigDataTechnical/tree/main/Flink)。
 
 ## 总结
 
 本课时从实时计算的背景入手介绍了当前实时计算的发展历程，Flink 作为实时计算领域的一匹黑马，先进的设计思想、强大的性能和丰富的业务场景支持，已经是我们开发者必须要学习的技能之一，Flink 已经成为实时计算领域最锋利的武器！
-
- 
-
-开篇词：实时计算领域最锋利的武器 Flink
-
-11:45
-
- 42讲轻松通关 Flink
 
  

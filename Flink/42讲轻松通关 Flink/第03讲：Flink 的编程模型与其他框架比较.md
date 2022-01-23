@@ -85,7 +85,7 @@ Flink 没有使用任何复杂的机制来解决反压问题，Flink 在数据�
 
 以上就是本课时的内容。在下一课时中，我将介绍“Flink 常用的 DataSet 和 DataStream API”，下一课时见。
 
-[点击这里下载本课程源码](https://github.com/wangzhiwubigdata/quickstart)。
+[点击这里下载本课程源码](https://gitee.com/ddxygq/BigDataTechnical/tree/main/Flink)。
 
  
 
