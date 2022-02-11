@@ -93,29 +93,18 @@
 
 ## 五、数据仓库
 
-[数仓架构发展史](https://mp.weixin.qq.com/s/lwv1P8PiTcQWhInw_G7X5Q)
-
-[数仓建模方法论](https://mp.weixin.qq.com/s/CTyynCUCLB2lq9S1ujRNaQ)
-
-[数仓建模分层理论](https://mp.weixin.qq.com/s/8rpDyo41Kr4r_2wp5hirVA)
-
-[数仓建模—宽表的设计](https://mp.weixin.qq.com/s/Jsi55C4eHE-O69e3JwwIcg)
-
-[数仓建模—指标体系](https://mp.weixin.qq.com/s/H3vbulk3gavIvV40LrIagA)
-
-[一文搞懂ETL和ELT的区别](https://mp.weixin.qq.com/s/v2U771fOvm3n0JOaF_K5_g)
-
-[数据湖知识点](https://mp.weixin.qq.com/s/5U32VJJfQo5RTa1zORzGsQ)
-
-[技术选型 | OLAP大数据技术哪家强？](https://mp.weixin.qq.com/s/6MXcmk9158iiqe0jXKJqBQ)
-
-[数仓相关面试题](https://mp.weixin.qq.com/s/Yu3pWkcJBpH23628bThxGw)
-
-[从 0 到 1 学习 Presto，这一篇就够了！](https://mp.weixin.qq.com/s/Vj7bA-lgl3kfgGHbykN0lQ)
-
-[元数据管理在数据仓库的实践应用](https://mp.weixin.qq.com/s/MKqRFtjEPBA-9E8VD8YXhg)
-
-[做中台2年多了，中台到底是什么呢？万字长文来聊一聊中台](https://mp.weixin.qq.com/s/2xRk72eezOhQ6GCKDaLhCg)
+1. [数仓架构发展史](https://mp.weixin.qq.com/s/lwv1P8PiTcQWhInw_G7X5Q)
+2. [数仓建模方法论](https://mp.weixin.qq.com/s/CTyynCUCLB2lq9S1ujRNaQ)
+3. [数仓建模分层理论](https://mp.weixin.qq.com/s/8rpDyo41Kr4r_2wp5hirVA)
+4. [数仓建模—宽表的设计](https://mp.weixin.qq.com/s/Jsi55C4eHE-O69e3JwwIcg)
+5. [数仓建模—指标体系](https://mp.weixin.qq.com/s/H3vbulk3gavIvV40LrIagA)
+6. [一文搞懂ETL和ELT的区别](https://mp.weixin.qq.com/s/v2U771fOvm3n0JOaF_K5_g)
+7. [数据湖知识点](https://mp.weixin.qq.com/s/5U32VJJfQo5RTa1zORzGsQ)
+8. [技术选型 | OLAP大数据技术哪家强？](https://mp.weixin.qq.com/s/6MXcmk9158iiqe0jXKJqBQ)
+9. [数仓相关面试题](https://mp.weixin.qq.com/s/Yu3pWkcJBpH23628bThxGw)
+10. [从 0 到 1 学习 Presto，这一篇就够了！](https://mp.weixin.qq.com/s/Vj7bA-lgl3kfgGHbykN0lQ)
+11. [元数据管理在数据仓库的实践应用](https://mp.weixin.qq.com/s/MKqRFtjEPBA-9E8VD8YXhg)
+12. [做中台2年多了，中台到底是什么呢？万字长文来聊一聊中台](https://mp.weixin.qq.com/s/2xRk72eezOhQ6GCKDaLhCg)
 
 ## 六、Hive
 

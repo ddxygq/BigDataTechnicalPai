@@ -1,8 +1,13 @@
-## 第06讲：Flink 集群安装部署和 HA 配置
-
-[TOC]
-
-
+####  Flink系列文章
+1. [第01讲：Flink 的应用场景和架构模型](https://www.ikeguang.com/?p=1976)
+2. [第02讲：Flink 入门程序 WordCount 和 SQL 实现](https://www.ikeguang.com/?p=1977)
+3. [第03讲：Flink 的编程模型与其他框架比较](https://www.ikeguang.com/?p=1978)
+4. [第04讲：Flink 常用的 DataSet 和 DataStream API](https://www.ikeguang.com/?p=1982)
+5. [第05讲：Flink SQL & Table 编程和案例](https://www.ikeguang.com/?p=1983)
+6. [第06讲：Flink 集群安装部署和 HA 配置](https://www.ikeguang.com/?p=1985)
+7. [第07讲：Flink 常见核心概念分析](https://www.ikeguang.com/?p=1986)
+8. [第08讲：Flink 窗口、时间和水印](https://www.ikeguang.com/?p=1987)
+9. [第09讲：Flink 状态与容错](https://www.ikeguang.com/?p=1988)
 
 我们在这一课时将讲解 Flink 常见的部署模式：本地模式、Standalone 模式和 Flink On Yarn 模式，然后分别讲解三种模式的使用场景和部署中常见的问题，最后将讲解在生产环境中 Flink 集群的高可用配置。
 
@@ -83,7 +88,7 @@ Standalone 模式是集群模式的一种，但是这种模式一般并不运行
 复制代码
 
 ```
-➜  [SoftWare]# tar -zxvf flink-1.10.0-bin-scala_2.11.tgz
+[SoftWare]# tar -zxvf flink-1.10.0-bin-scala_2.11.tgz
 ```
 
 **重点来啦**，我们需要修改 Flink 的配置文件，并且将修改好的解压目录完整的拷贝到两个从节点中去。在这里，我强烈建议主节点和从节点的目录要保持一致。
@@ -270,3 +275,5 @@ scp -r /SoftWare/flink-1.10.0 slave03:/SoftWare/
 ### 总结
 
 本课时我们讲解了 Flink 的三种部署模式和高可用配置，并且对这三种部署模式的适用场景进行了讲解。在生产上，我们最常用的方式当然是 Flink on Yarn，借助 Yarn 在资源管理上的绝对优势，确保集群和任务的稳定。
+
+>关注公众号：`大数据技术派`，回复`资料`，领取`1024G`资料。
