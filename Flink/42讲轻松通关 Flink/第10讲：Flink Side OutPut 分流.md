@@ -1,8 +1,22 @@
-## 第10讲：Flink Side OutPut 分流
+####  Flink系列文章
 
-[TOC]
-
-
+1. [第01讲：Flink 的应用场景和架构模型](https://www.ikeguang.com/?p=1976)
+2. [第02讲：Flink 入门程序 WordCount 和 SQL 实现](https://www.ikeguang.com/?p=1977)
+3. [第03讲：Flink 的编程模型与其他框架比较](https://www.ikeguang.com/?p=1978)
+4. [第04讲：Flink 常用的 DataSet 和 DataStream API](https://www.ikeguang.com/?p=1982)
+5. [第05讲：Flink SQL & Table 编程和案例](https://www.ikeguang.com/?p=1983)
+6. [第06讲：Flink 集群安装部署和 HA 配置](https://www.ikeguang.com/?p=1985)
+7. [第07讲：Flink 常见核心概念分析](https://www.ikeguang.com/?p=1986)
+8. [第08讲：Flink 窗口、时间和水印](https://www.ikeguang.com/?p=1987)
+9. [第09讲：Flink 状态与容错](https://www.ikeguang.com/?p=1988)
+10. [第10讲：Flink Side OutPut 分流](https://www.ikeguang.com/?p=1991)
+11. [第11讲：Flink CEP 复杂事件处理](https://www.ikeguang.com/?p=1992)
+12. [第12讲：Flink 常用的 Source 和 Connector](https://www.ikeguang.com/?p=1993)
+13. [第13讲：如何实现生产环境中的 Flink 高可用配置](https://www.ikeguang.com/?p=1994)
+14. [第14讲：Flink Exactly-once 实现原理解析](https://www.ikeguang.com/?p=1995)
+15. [第15讲：如何排查生产环境中的反压问题](https://www.ikeguang.com/?p=1998)
+16. [第16讲：如何处理Flink生产环境中的数据倾斜问题](https://www.ikeguang.com/?p=1999)
+17. [第17讲：生产环境中的并行度和资源设置](https://www.ikeguang.com/?p=2000)
 
 这一课时将介绍 Flink 中提供的一个很重要的功能：旁路分流器。
 
@@ -46,18 +60,11 @@ public static void main(String[] args) throws Exception {
 
     SingleOutputStreamOperator<Tuple3<Integer, Integer, Integer>> oneStream = items.filter((FilterFunction<Tuple3<Integer, Integer, Integer>>) value -> value.f0 == 1);
 
-
-
     zeroStream.print();
 
     oneStream.printToErr();
 
-
-
-
-
     //打印结果
-
     String jobName = "user defined streaming source";
 
     env.execute(jobName);
@@ -84,12 +91,8 @@ Split 也是 Flink 提供给我们将流进行切分的方法，需要在 split 
 ```java
 public static void main(String[] args) throws Exception {
 
-
-
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
     //获取数据源
-
     List data = new ArrayList<Tuple3<Integer,Integer,Integer>>();
 
     data.add(new Tuple3<>(0,1,0));
@@ -108,20 +111,11 @@ public static void main(String[] args) throws Exception {
 
     data.add(new Tuple3<>(1,2,13));
 
-
-
-
-
     DataStreamSource<Tuple3<Integer,Integer,Integer>> items = env.fromCollection(data);
-
-
-
-
 
     SplitStream<Tuple3<Integer, Integer, Integer>> splitStream = items.split(new OutputSelector<Tuple3<Integer, Integer, Integer>>() {
 
         @Override
-
         public Iterable<String> select(Tuple3<Integer, Integer, Integer> value) {
 
             List<String> tags = new ArrayList<>();
@@ -148,10 +142,7 @@ public static void main(String[] args) throws Exception {
 
     splitStream.select("oneStream").printToErr();
 
-
-
     //打印结果
-
     String jobName = "user defined streaming source";
 
     env.execute(jobName);
@@ -195,8 +186,6 @@ SideOutPut 是 Flink 框架为我们提供的最新的也是最为推荐的分�
 ```java
 public static void main(String[] args) throws Exception {
 
-
-
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
     //获取数据源
@@ -220,39 +209,25 @@ public static void main(String[] args) throws Exception {
     data.add(new Tuple3<>(1,2,13));
 
 
-
-
-
     DataStreamSource<Tuple3<Integer,Integer,Integer>> items = env.fromCollection(data);
-
-
 
     OutputTag<Tuple3<Integer,Integer,Integer>> zeroStream = new OutputTag<Tuple3<Integer,Integer,Integer>>("zeroStream") {};
 
     OutputTag<Tuple3<Integer,Integer,Integer>> oneStream = new OutputTag<Tuple3<Integer,Integer,Integer>>("oneStream") {};
 
 
-
-
-
     SingleOutputStreamOperator<Tuple3<Integer, Integer, Integer>> processStream= items.process(new ProcessFunction<Tuple3<Integer, Integer, Integer>, Tuple3<Integer, Integer, Integer>>() {
 
         @Override
-
         public void processElement(Tuple3<Integer, Integer, Integer> value, Context ctx, Collector<Tuple3<Integer, Integer, Integer>> out) throws Exception {
 
-
-
             if (value.f0 == 0) {
-
                 ctx.output(zeroStream, value);
 
             } else if (value.f0 == 1) {
-
                 ctx.output(oneStream, value);
 
             }
-
         }
 
     });
@@ -264,17 +239,11 @@ public static void main(String[] args) throws Exception {
     DataStream<Tuple3<Integer, Integer, Integer>> oneSideOutput = processStream.getSideOutput(oneStream);
 
 
-
     zeroSideOutput.print();
 
     oneSideOutput.printToErr();
 
-
-
-
-
     //打印结果
-
     String jobName = "user defined streaming source";
 
     env.execute(jobName);
