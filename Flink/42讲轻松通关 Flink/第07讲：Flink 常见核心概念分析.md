@@ -1,5 +1,3 @@
-## 第07讲：Flink 常见核心概念分析
-
 ####  Flink系列文章
 
 1. [第01讲：Flink 的应用场景和架构模型](https://www.ikeguang.com/?p=1976)
