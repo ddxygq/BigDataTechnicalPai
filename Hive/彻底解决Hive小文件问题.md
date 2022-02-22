@@ -1,5 +1,20 @@
 >关注公众号：`大数据技术派`，回复`资料`，领取`1024G`资料。
 
+**Hive系列文章**
+
+1. [Hive表的基本操作](http://www.ikeguang.com/?p=1657)
+2. [Hive中的集合数据类型](http://www.ikeguang.com/?p=1611)
+3. [Hive动态分区详解](http://www.ikeguang.com/?p=1615)
+4. [hive中orc格式表的数据导入](http://www.ikeguang.com/?p=595)
+5. [Java通过jdbc连接hive](http://www.ikeguang.com/?p=759)
+6. [通过HiveServer2访问Hive](http://www.ikeguang.com/?p=1594)
+7. [SpringBoot连接Hive实现自助取数](http://www.ikeguang.com/?p=815)
+8. [hive关联hbase表](http://www.ikeguang.com/?p=658)
+9. [Hive udf 使用方法](http://www.ikeguang.com/?p=338)
+10. [Hive基于UDF进行文本分词](http://www.ikeguang.com/?p=1623)
+11. [Hive窗口函数row number的用法](http://www.ikeguang.com/?p=1647)
+12. [数据仓库之拉链表](http://www.ikeguang.com/?p=1587)
+
 最近发现离线任务对一个增量`Hive`表的查询越来越慢，这引起了我的注意，我在`cmd`窗口手动执行`count`操作查询发现，速度确实很慢，才不到五千万的数据，居然需要`300s`，这显然是有问题的，我推测可能是有小文件。
 
 我去`hdfs`目录查看了一下该目录：
