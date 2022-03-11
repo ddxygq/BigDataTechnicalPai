@@ -36,8 +36,6 @@ Filter 方法我们在第 04 课时中（Flink 常用的 DataSet 和 DataStream 
 
 来看下面的例子：
 
-复制代码
-
 ```java
 public static void main(String[] args) throws Exception {
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -86,8 +84,6 @@ Split 也是 Flink 提供给我们将流进行切分的方法，需要在 split 
 
 我们来看下面的例子：
 
-复制代码
-
 ```java
 public static void main(String[] args) throws Exception {
 
@@ -96,19 +92,12 @@ public static void main(String[] args) throws Exception {
     List data = new ArrayList<Tuple3<Integer,Integer,Integer>>();
 
     data.add(new Tuple3<>(0,1,0));
-
     data.add(new Tuple3<>(0,1,1));
-
     data.add(new Tuple3<>(0,2,2));
-
     data.add(new Tuple3<>(0,1,3));
-
     data.add(new Tuple3<>(1,2,5));
-
     data.add(new Tuple3<>(1,2,9));
-
     data.add(new Tuple3<>(1,2,11));
-
     data.add(new Tuple3<>(1,2,13));
 
     DataStreamSource<Tuple3<Integer,Integer,Integer>> items = env.fromCollection(data);
@@ -121,30 +110,22 @@ public static void main(String[] args) throws Exception {
             List<String> tags = new ArrayList<>();
 
             if (value.f0 == 0) {
-
                 tags.add("zeroStream");
 
             } else if (value.f0 == 1) {
-
                 tags.add("oneStream");
-
             }
 
             return tags;
 
         }
-
     });
 
-
-
     splitStream.select("zeroStream").print();
-
     splitStream.select("oneStream").printToErr();
 
     //打印结果
     String jobName = "user defined streaming source";
-
     env.execute(jobName);
 
 }
@@ -155,8 +136,6 @@ public static void main(String[] args) throws Exception {
 ![image (11).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7CA4aAbUSJAAG1LWNB3qw627-20210223084827377.png)
 
 但是要注意，使用 split 算子切分过的流，是不能进行二次切分的，假如把上述切分出来的 zeroStream 和 oneStream 流再次调用 split 切分，控制台会抛出以下异常。
-
-复制代码
 
 ```java
 Exception in thread "main" java.lang.IllegalStateException: Consecutive multiple splits are not supported. Splits are deprecated. Please use side-outputs.
@@ -180,8 +159,6 @@ SideOutPut 是 Flink 框架为我们提供的最新的也是最为推荐的分�
   - ProcessAllWindowFunction
 
 在这里我们使用 ProcessFunction 来讲解如何使用 SideOutPut：
-
-复制代码
 
 ```java
 public static void main(String[] args) throws Exception {
@@ -232,12 +209,9 @@ public static void main(String[] args) throws Exception {
 
     });
 
-
-
     DataStream<Tuple3<Integer, Integer, Integer>> zeroSideOutput = processStream.getSideOutput(zeroStream);
 
     DataStream<Tuple3<Integer, Integer, Integer>> oneSideOutput = processStream.getSideOutput(oneStream);
-
 
     zeroSideOutput.print();
 
