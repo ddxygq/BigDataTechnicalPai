@@ -70,6 +70,8 @@ CREATE CATALOG hive_catalog WITH (
 
 这里需要注意：hive-conf-dir是你的hive配置文件地址，里面需要有hive-site.xml这个主要的配置文件，你可以从hive节点复制那几个配置文件到本台机器上面。
 
+
+
 2） 查询
 
 此时我们应该做一些常规DDL操作，验证配置是否有问题：
