@@ -51,7 +51,7 @@ flink-sql-connector-mysql-cdc-1.4.0.jar
 1) 先在yarn上面启动一个application，进入flink13.5目录，执行：
 
 ```bash
-bin/yarn-session.sh -d -s 1 -jm 1024 -tm 2048 -qu root.sparkstreaming -nm flink-cdc-hbase
+bin/yarn-session.sh -d -s 2 -jm 1024 -tm 2048 -qu root.sparkstreaming -nm flink-cdc-hbase
 ```
 
 
@@ -223,6 +223,30 @@ Flink SQL> select * from product_view_hbase ;
 执行上面查询sql，就会进入界面，这就是hbase里面的数据了：
 
 ![image-20220915153846428](https://oss.ikeguang.com/image/202209151538713.png)
+
+
+
+## 5. 关联查询
+
+在这个flink-sql client环境中，这里有两张表：product_view_source（mysql的表）和product_view_hbase（hbase的表），后者是有前者查询导入的，这里为了简单，我没有再关联其它第三张表，就用这两张表，做关联查询，达到演示的目的。
+
+```sql
+select product_view_source.*, product_view_hbase.*  from product_view_source
+inner join product_view_hbase
+on product_view_source.id = product_view_hbase.rowkey;
+```
+
+这里做了个简单的关联查询，通过id跟rowkey关联，然后打开web-ui，通过flink web-ui结果可以看出，这里是个hash join，两个source，到join，一共3个task。
+
+![image-20220915160523185](https://oss.ikeguang.com/image/202209151605516.png)
+
+看看查出来的结果吧，这是flnk-sql client：
+
+![image-20220915160617440](https://oss.ikeguang.com/image/202209151606653.png)
+
+比如我选中这一行，进来后是这条数据的详细情况，是没有问题的：
+
+![image-20220915160731799](https://oss.ikeguang.com/image/202209151607771.png)
 
 
 
