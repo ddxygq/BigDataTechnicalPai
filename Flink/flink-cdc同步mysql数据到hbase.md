@@ -209,6 +209,23 @@ Took 0.1656 seconds
 
 
 
+直接在flink-sql client里面查询hbase数据，也是可以的：
+
+```sql
+Flink SQL> select * from product_view_hbase ;
+2022-09-15 15:38:23,205 INFO  org.apache.flink.yarn.YarnClusterDescriptor                  [] - No path for the flink jar passed. Using the location of class org.apache.flink.yarn.YarnClusterDescriptor to locate the jar
+2022-09-15 15:38:23,207 INFO  org.apache.hadoop.yarn.client.ConfiguredRMFailoverProxyProvider [] - Failing over to rm72
+2022-09-15 15:38:23,212 INFO  org.apache.flink.yarn.YarnClusterDescriptor                  [] - Found Web Interface cdh-001:35225 of application 'application_1633924491541_7321'.
+```
+
+
+
+执行上面查询sql，就会进入界面，这就是hbase里面的数据了：
+
+![image-20220915153846428](https://oss.ikeguang.com/image/202209151538713.png)
+
+
+
 参考资料
 
 https://nightlies.apache.org/flink/flink-docs-release-1.13/zh/docs/connectors/table/hbase/
