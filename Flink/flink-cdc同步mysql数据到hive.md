@@ -105,6 +105,98 @@ select * from people;
 
 
 
+## 5. mysql数据同步到hive
+
+mysql数据无法直接在flink sql导入hive，需要分成两步：
+
+1. mysql数据同步kafka；
+2. kafka数据同步hive；
+
+至于mysql数据增量同步到kafka，前面有文章分析，这里不在概述；重点介绍kafka数据同步到hive。
+
+1） 建表跟kafka关联绑定：
+
+前面mysql同步到kafka，在flink sql里面建表，connector='upsert-kafka'，这里有区别：
+
+```sql
+CREATE TABLE product_view_mysql_kafka_parser(
+`id` int,
+`user_id` int,
+`product_id` int,
+`server_id` int,
+`duration` int,
+`times` string,
+`time` timestamp
+) WITH (
+ 'connector' = 'kafka',
+ 'topic' = 'flink-cdc-kafka',
+ 'properties.bootstrap.servers' = 'kafka-001:9092',
+ 'scan.startup.mode' = 'earliest-offset',
+ 'format' = 'json'
+);
+```
+
+2） 建一张hive表
+
+创建hive需要指定`SET table.sql-dialect=hive;`，否则flink sql 命令行无法识别这个建表语法。为什么需要这样，可以看看这个文档[Hive 方言](https://nightlies.apache.org/flink/flink-docs-release-1.13/zh/docs/connectors/table/hive/hive_dialect/)。
+
+```sql
+-- 创建一个catalag用户hive操作
+CREATE CATALOG hive_catalog WITH (
+    'type' = 'hive',
+    'hive-conf-dir' = '/etc/hive/conf.cloudera.hive'
+);
+use catalog hive_catalog;
+
+-- 可以看到我们的hive里面有哪些数据库
+show databases;
+use test;
+show tables;
+```
+
+上面我们可以现在看看hive里面有哪些数据库，有哪些表；接下来创建一张hive表：
+
+```sql
+CREATE TABLE product_view_kafka_hive_cdc (
+  `id` int,
+`user_id` int,
+`product_id` int,
+`server_id` int,
+`duration` int,
+`times` string,
+`time` timestamp
+) STORED AS parquet TBLPROPERTIES (
+  'sink.partition-commit.trigger'='partition-time',
+  'sink.partition-commit.delay'='0S',
+  'sink.partition-commit.policy.kind'='metastore,success-file',
+  'auto-compaction'='true',
+  'compaction.file-size'='128MB'
+);
+```
+
+然后做数据同步：
+
+```sql
+insert into hive_catalog.test.product_view_kafka_hive_cdc
+select * 
+from 
+default_catalog.default_database.product_view_mysql_kafka_parser;
+```
+
+注意：这里指定表名，我用的是catalog.database.table，这种格式，因为这是两个不同的库，需要明确指定catalog - database - table。
+
+网上还有其它方案，关于mysql实时增量同步到hive：
+
+![img](https://oss.ikeguang.com/image/202209161347788.png)
+
+
+
+网上看到一篇写的[实时数仓架构方案](https://blog.csdn.net/wudonglianga/article/details/123034634)，觉得还可以：
+
+![image-20220916134859155](https://oss.ikeguang.com/image/202209161349602.png)
+
+
+
 参考资料
 
 https://nightlies.apache.org/flink/flink-docs-release-1.13/zh/docs/connectors/table/hive/hive_dialect/
