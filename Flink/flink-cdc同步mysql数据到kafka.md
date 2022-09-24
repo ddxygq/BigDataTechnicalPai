@@ -2,7 +2,7 @@
 
 CDC是（Change Data Capture 变更数据获取）的简称。核心思想是，监测并捕获数据库的变动（包括数据 或 数据表的插入INSERT、更新UPDATE、删除DELETE等），将这些变更按发生的顺序完整记录下来，写入到消息中间件中以供其他服务进行订阅及消费。
 
-![Flink_CDC](https://ververica.github.io/flink-cdc-connectors/master/_images/flinkcdc.png)
+![Flink_CDC](https://oss.ikeguang.com/image/202209240949909.png)
 
 ## 1. 环境准备
 
