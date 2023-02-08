@@ -30,7 +30,7 @@
 
 #### Filter 分流
 
-![image (9).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7CAy6ADUaXAACSFUbdpuA911-20210223084827182.png)
+![image (9).png](https://oss.ikeguang.com/image/202302081521500.png)
 
 Filter 方法我们在第 04 课时中（Flink 常用的 DataSet 和 DataStream API）讲过，这个算子用来根据用户输入的条件进行过滤，每个元素都会被 filter() 函数处理，如果 filter() 函数返回 true 则保留，否则丢弃。那么用在分流的场景，我们可以做多次 filter，把我们需要的不同数据生成不同的流。
 
@@ -72,7 +72,7 @@ public static void main(String[] args) throws Exception {
 
 在上面的例子中我们使用 filter 算子将原始流进行了拆分，输入数据第一个元素为 0 的数据和第一个元素为 1 的数据分别被写入到了 zeroStream 和 oneStream 中，然后把两个流进行了打印。
 
-![image (10).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7CA2WAYbshAAKj494h86s723-20210223084827296.png)
+![image (10).png](https://oss.ikeguang.com/image/202302081521489.png)
 
 可以看到 zeroStream 和 oneStream 分别被打印出来。
 
@@ -133,7 +133,7 @@ public static void main(String[] args) throws Exception {
 
 同样，我们把来源的数据使用 split 算子进行了切分，并且打印出结果。
 
-![image (11).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7CA4aAbUSJAAG1LWNB3qw627-20210223084827377.png)
+![image (11).png](https://oss.ikeguang.com/image/202302081521262.png)
 
 但是要注意，使用 split 算子切分过的流，是不能进行二次切分的，假如把上述切分出来的 zeroStream 和 oneStream 流再次调用 split 切分，控制台会抛出以下异常。
 
@@ -143,7 +143,7 @@ Exception in thread "main" java.lang.IllegalStateException: Consecutive multiple
 
 这是什么原因呢？我们在源码中可以看到注释，该方式已经废弃并且建议使用最新的 SideOutPut 进行分流操作。
 
-![image (12).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7CA6OAJ-JDAAIrh1JSAEo033-20210223084827602.png)
+![image (12).png](https://oss.ikeguang.com/image/202302081521787.png)
 
 #### SideOutPut 分流
 
@@ -227,7 +227,7 @@ public static void main(String[] args) throws Exception {
 
 可以看到，我们将流进行了拆分，并且成功打印出了结果。这里要注意，Flink 最新提供的 SideOutPut 方式拆分流是**可以多次进行拆分**的，无需担心会爆出异常。
 
-![image (13).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7CBMKAGHoUAAM-5UL5geg132-20210223084827698.png)
+![image (13).png](https://oss.ikeguang.com/image/202302081521025.png)
 
 ### 总结
 

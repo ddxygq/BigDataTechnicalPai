@@ -90,17 +90,17 @@ Flink 支持了非常丰富的模式定义，这些模式也是我们实现复�
 
 简单模式
 
-![1.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7GInaAMu-kAAF3VZMO0po344.png)
+![1.png](https://oss.ikeguang.com/image/202302081521608.png)
 
-![2.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7GIn6AdsvlAAI2-XxT_0c215.png)
+![2.png](https://oss.ikeguang.com/image/202302081521909.png)
 
 联合模式
 
-![3.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7GIoqAfXZbAAEefGXZgmA893.png)
+![3.png](https://oss.ikeguang.com/image/202302081521363.png)
 
 匹配后的忽略模式
 
-![4.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7GIpqADcwOAACchsP0psk030.png)
+![4.png](https://oss.ikeguang.com/image/202302081521716.png)
 
 ### 源码解析
 我们在上面的官网案例中可以发现，Flink CEP 的整个过程是：
@@ -127,11 +127,11 @@ public <R> SingleOutputStreamOperator<R> process(
 
 最终经过 PatternStreamBuilder 的 build 方法生成了一个 SingleOutputStreamOperator，这个类继承了 DataStream。
 
-![image (13).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7GIraAGh4wAAOFG844ie0933.png)
+![image (13).png](https://oss.ikeguang.com/image/202302081522511.png)
 
 最终的处理计算逻辑其实都封装在了 CepOperator 这个类中，而在 CepOperator 这个类中的 processElement 方法则是对每一条数据的处理逻辑。
 
-![image (14).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7GIr6AOcT4AAb08tNwBuY069.png)
+![image (14).png](https://oss.ikeguang.com/image/202302081522161.png)
 
 同时由于 CepOperator 实现了 Triggerable 接口，所以会执行定时器。所有核心的处理逻辑都在 updateNFA 这个方法中。
 

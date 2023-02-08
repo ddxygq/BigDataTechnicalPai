@@ -37,11 +37,11 @@ readFile(fileInputFormat, path)
 
 可以直接在 ExecutionEnvironment 和 StreamExecutionEnvironment 类中找到 Flink 支持的读取本地文件的方法，如下图所示：
 
-![image.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7LZOmARiTtAAUjtOQOdFM469.png)
+![image.png](https://oss.ikeguang.com/image/202302081525021.png)
 
 
 
-![image (1).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7LZPCATHI4AAWm1YuLPzc592.png)
+![image (1).png](https://oss.ikeguang.com/image/202302081525734.png)
 
 
 
@@ -76,7 +76,7 @@ fromElements(T ...)
 
 我们也可以在源码中看到 Flink 支持的方法，如下图所示：
 
-![image (2).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7LZQaAcf12AARuVRNchzI825.png)
+![image (2).png](https://oss.ikeguang.com/image/202302081526953.png)
 
 ```
 DataSet<String> text = env.fromElements(

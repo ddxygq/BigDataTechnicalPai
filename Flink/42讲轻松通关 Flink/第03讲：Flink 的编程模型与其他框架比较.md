@@ -21,13 +21,13 @@
 
 我们在第 01 课中提到过，Flink 程序的基础构建模块是**流**（Streams）和**转换**（Transformations），每一个数据流起始于一个或多个 **Source**，并终止于一个或多个 **Sink**。数据流类似于**有向无环图**（DAG）。
 
-![1.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16denaAPo7tAACo7DlykpM089.png)
+![1.png](https://oss.ikeguang.com/image/202302081422360.png)
 
 在分布式运行环境中，Flink 提出了**算子链**的概念，Flink 将多个算子放在一个任务中，由同一个线程执行，减少线程之间的切换、消息的序列化/反序列化、数据在缓冲区的交换，减少延迟的同时提高整体的吞吐量。
 
 官网中给出的例子如下，在并行环境下，Flink 将多个 operator 的子任务链接在一起形成了一个task，每个 task 都有一个独立的线程执行。
 
-![2.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16deoGAJ4eKAACqajltWCA847.png)
+![2.png](https://oss.ikeguang.com/image/202302081422597.png)
 
 #### Flink 集群模型和角色
 
@@ -37,7 +37,7 @@
 - **TaskManager**：实际负责执行计算的 Worker，在其上执行 Flink Job 的一组 Task；TaskManager 还是所在节点的管理员，它负责把该节点上的服务器信息比如内存、磁盘、任务运行情况等向 JobManager 汇报。
 - **Client**：用户在提交编写好的 Flink 工程时，会先创建一个客户端再进行提交，这个客户端就是 Client，Client 会根据用户传入的参数选择使用 yarn per job 模式、stand-alone 模式还是 yarn-session 模式将 Flink 程序提交到集群。
 
-![3.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6devOAAP4SAAEkBe4fiV8631.png)
+![3.png](https://oss.ikeguang.com/image/202302081422652.png)
 
 #### Flink 资源和资源组
 
@@ -45,11 +45,11 @@
 
 我们可以简单的把 Task Slot 理解为 TaskManager 的计算资源子集。假如一个 TaskManager 拥有 5 个 slot，那么该 TaskManager 的计算资源会被平均分为 5 份，不同的 task 在不同的 slot 中执行，避免资源竞争。但是需要注意的是，slot 仅仅用来做内存的隔离，对 CPU 不起作用。那么运行在同一个 JVM 的 task 可以共享 TCP 连接，减少网络传输，在一定程度上提高了程序的运行效率，降低了资源消耗。
 
-![4.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16dewmAe_daAACHWlNoIK0274.png)
+![4.png](https://oss.ikeguang.com/image/202302081422783.png)
 
 与此同时，Flink 还允许将不能形成算子链的两个操作，比如下图中的 flatmap 和 key&sink 放在一个 TaskSlot 里执行以达到资源共享的目的。
 
-![5.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16dexKAV4vJAAEFgDwmVBw990.png)
+![5.png](https://oss.ikeguang.com/image/202302081422569.png)
 
 ### Flink 的优势及与其他框架的区别
 

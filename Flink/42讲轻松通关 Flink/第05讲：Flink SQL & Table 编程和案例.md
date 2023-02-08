@@ -10,7 +10,7 @@
 
 我们在前面的课时中讲过 Flink 的分层模型，Flink 自身提供了不同级别的抽象来支持我们开发流式或者批量处理程序，下图描述了 Flink 支持的 4 种不同级别的抽象。
 
-![image.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16mnASAOZj0AACsqOUWhS0726.png)
+![image.png](https://oss.ikeguang.com/image/202302081426615.png)
 
 **Table API** 和 **SQL** 处于最顶端，是 Flink 提供的高级 API 操作。Flink SQL 是 Flink 实时计算为简化计算模型，降低用户使用实时计算门槛而设计的一套符合标准 SQL 语义的开发语言。
 
@@ -22,12 +22,12 @@
 
 下图是一张经典的 Flink Table & SQL 实现原理图，可以看到 Calcite 在整个架构中处于绝对核心地位。
 
-![image (1).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16mnGWASOD-AAJ7jTakc-4812.png)
+![image (1).png](https://oss.ikeguang.com/image/202302081426538.png)
 从图中可以看到无论是批查询 SQL 还是流式查询 SQL，都会经过对应的转换器 Parser 转换成为节点树 SQLNode tree，然后生成逻辑执行计划 Logical Plan，逻辑执行计划在经过优化后生成真正可以执行的物理执行计划，交给 DataSet 或者 DataStream 的 API 去执行。
 
 在这里我们不对 Calcite 的原理过度展开，有兴趣的可以直接在官网上学习。一个完整的 Flink Table & SQL Job 也是由 Source、Transformation、Sink 构成：
 
-![image (2).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16mnHiAa99JAAFeAnFYzIE146.png)
+![image (2).png](https://oss.ikeguang.com/image/202302081426192.png)
 
 - **Source 部分**来源于外部数据源，我们经常用的有 Kafka、MySQL 等；
 - **Transformation 部分**则是 Flink Table & SQL 支持的常用 SQL 算子，比如简单的 Select、Groupby 等，当然在这里也有更为复杂的多流 Join、流与维表的 Join 等；
@@ -39,7 +39,7 @@
 
 我们举个简单的例子，Flink 程序接受一个 Kafka 流作为输入，Kafka 中为用户的购买记录：
 
-![image (3).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16mnKaASUgqAAHL5tHLarA558.png)
+![image (3).png](https://oss.ikeguang.com/image/202302081426272.png)
 
 首先，Kafka 的消息会被源源不断的解析成一张不断增长的动态表，我们在动态表上执行的 SQL 会不断生成新的动态表作为结果表。
 
@@ -205,7 +205,7 @@ LEFT JOIN、RIGHT JOIN 、FULL JOIN 相与我们传统 SQL 中含义一样。
 **滚动窗口**
 
 滚动窗口的特点是：有固定大小、窗口中的数据不会重叠，如下图所示：
-![image (4).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16mnZSAP4G5AAEyag8FwPM908.png)
+![image (4).png](https://oss.ikeguang.com/image/202302081426121.png)
 
 滚动窗口的语法：
 
@@ -233,7 +233,7 @@ SELECT user, TUMBLE_START(timeLine, INTERVAL '1' DAY) as winStart, SUM(amount) F
 
 滑动窗口有固定的大小，与滚动窗口不同的是滑动窗口可以通过 slide 参数控制滑动窗口的创建频率。需要注意的是，多个滑动窗口可能会发生数据重叠，具体语义如下：
 
-![image (5).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mnceAEzZNAAEs6POgpPQ859.png)
+![image (5).png](https://oss.ikeguang.com/image/202302081426111.png)
 
 滑动窗口的语法与滚动窗口相比，只多了一个 slide 参数：
 
@@ -265,7 +265,7 @@ SELECT product, SUM(amount) FROM Orders GROUP BY HOP(rowtime, INTERVAL '1' HOUR,
 
 会话窗口定义了一个非活动时间，假如在指定的时间间隔内没有出现事件或消息，则会话窗口关闭。
 
-![image (6).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mngCAVToGAAEyMz6pyiE117.png)
+![image (6).png](https://oss.ikeguang.com/image/202302081426276.png)
 会话窗口的语法如下：
 
 ```
@@ -297,19 +297,19 @@ Flink 中还有大量的内置函数，我们可以直接使用，将内置函�
 - 时间函数
 
 **比较函数**
-![比较函数.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mqKWAfZRoAAEspJ_3kgs250.png)
+![比较函数.png](https://oss.ikeguang.com/image/202302081427919.png)
 
 **逻辑函数**
-![逻辑函数.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mqNCAODW7AAB_4lfsI5k037.png)
+![逻辑函数.png](https://oss.ikeguang.com/image/202302081427552.png)
 
 **算术函数**
-![算术函数.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mqNeALwSaAABekYvTZkw048.png)
+![算术函数.png](https://oss.ikeguang.com/image/202302081427086.png)
 
 **字符串处理函数**
-![字符串处理函数.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mqN2AEnGrAABlm2eH_OY974.png)
+![字符串处理函数.png](https://oss.ikeguang.com/image/202302081427658.png)
 
 **时间函数**
-![时间函数.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mqOOAcYBFAACiFeqRUIM306.png)
+![时间函数.png](https://oss.ikeguang.com/image/202302081427814.png)
 
 ### Flink Table & SQL 案例
 
@@ -415,7 +415,7 @@ public class JoinDemo extends StreamJavaJob {
 
 直接右键运行，在控制台可以看到输出：
 
-![image (7).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6mnuqAa8d3AAINXpfEq-8636.png)
+![image (7).png](https://oss.ikeguang.com/image/202302081427045.png)
 
 ### 总结
 

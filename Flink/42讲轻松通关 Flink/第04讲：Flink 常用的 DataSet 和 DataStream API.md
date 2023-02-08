@@ -36,12 +36,12 @@ Apache Flink 在诞生之初的设计哲学是：**用同一个引擎支持多�
 
 整体架构如下图所示：
 
-![image.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hTJCARnCYAALXFI10sJU200.png)
+![image.png](https://oss.ikeguang.com/image/202302081424881.png)
 在 Flink 的源代码中，我们可以在 flink-java 这个模块中找到所有关于 DataSet 的核心类，DataStream 的核心实现类则在 flink-streaming-java 这个模块。
 
-![image (1).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6hTRuAdaYYAAfiA9_tU84430.png)
+![image (1).png](https://oss.ikeguang.com/image/202302081424727.png)
 
-![image (2).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hTSOAaofrAAd_Hyp6Zuw422.png)
+![image (2).png](https://oss.ikeguang.com/image/202302081424515.png)
 
 在上述两张图中，我们分别打开 DataSet 和 DataStream 这两个类，可以发现，二者支持的 API 都非常丰富且十分类似，比如常用的 map、filter、join 等常见的 transformation 函数。
 
@@ -53,7 +53,7 @@ Apache Flink 在诞生之初的设计哲学是：**用同一个引擎支持多�
 
 我们先来回顾一下 Flink 的编程模型，在之前的课时中提到过，Flink 程序的基础构建模块是**流**（Streams）和**转换**（Transformations），每一个数据流起始于一个或多个 **Source**，并终止于一个或多个 **Sink**。数据流类似于**有向无环图**（DAG）。
 
-![image (3).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hTWOAYItJAADWU6-1xbw110.png)
+![image (3).png](https://oss.ikeguang.com/image/202302081424490.png)
 
 在第 02 课时中模仿了一个流式计算环境，我们选择监听一个本地的 Socket 端口，并且使用 Flink 中的滚动窗口，每 5 秒打印一次计算结果。
 
@@ -150,15 +150,9 @@ public class MyStreamingSource implements SourceFunction<MyStreamingSource.Item>
 
 }
 
-
-
-
-
 class StreamingDemo {
 
     public static void main(String[] args) throws Exception {
-
-
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -195,7 +189,7 @@ class StreamingDemo {
 
 可以直接运行 main 方法来进行测试：
 
-![image (4).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hTgOAZCaLAAcArI5AjtQ208.png)
+![image (4).png](https://oss.ikeguang.com/image/202302081425187.png)
 
 可以在控制台中看到，已经有源源不断地数据开始输出。下面我们就用自定义的实时数据源来演示 DataStream API 的使用。
 
@@ -203,7 +197,7 @@ class StreamingDemo {
 
 Map 接受一个元素作为输入，并且根据开发者自定义的逻辑处理后输出。
 
-![image (5).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hThSAdYzhAADDHstaa9E625.png)
+![image (5).png](https://oss.ikeguang.com/image/202302081425851.png)
 
 复制代码
 
@@ -212,20 +206,15 @@ class StreamingDemo {
 
     public static void main(String[] args) throws Exception {
 
-
-
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         //获取数据源
-
         DataStreamSource<MyStreamingSource.Item> items = env.addSource(new MyStreamingSource()).setParallelism(1); 
 
         //Map
-
         SingleOutputStreamOperator<Object> mapItems = items.map(new MapFunction<MyStreamingSource.Item, Object>() {
 
             @Override
-
             public Object map(MyStreamingSource.Item item) throws Exception {
 
                 return item.getName();
@@ -235,7 +224,6 @@ class StreamingDemo {
         });
 
         //打印结果
-
         mapItems.print().setParallelism(1);
 
         String jobName = "user defined streaming source";
@@ -249,7 +237,7 @@ class StreamingDemo {
 
 我们只取出每个 Item 的 name 字段进行打印。
 
-![image (6).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6hTiuABREkAARA23HrkOQ888.png)
+![image (6).png](https://oss.ikeguang.com/image/202302081425449.png)
 
 注意，**Map 算子是最常用的算子之一**，官网中的表述是对一个 DataStream 进行映射，每次进行转换都会调用 MapFunction 函数。从源 DataStream 到目标 DataStream 的转换过程中，返回的是 SingleOutputStreamOperator。当然了，我们也可以在重写的 map 函数中使用 lambda 表达式。
 
@@ -341,7 +329,7 @@ SingleOutputStreamOperator<Object> flatMapItems = items.flatMap(new FlatMapFunct
 
 顾名思义，Fliter 的意思就是过滤掉不需要的数据，每个元素都会被 filter 函数处理，如果 filter 函数返回 true 则保留，否则丢弃。
 
-![image (7).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hTtiAPWhJAADGVua1-cc867.png)
+![image (7).png](https://oss.ikeguang.com/image/202302081425641.png)
 
 例如，我们只保留 id 为偶数的那些 item。
 
@@ -363,7 +351,7 @@ SingleOutputStreamOperator<MyStreamingSource.Item> filterItems = items.filter(ne
 });
 ```
 
-![image (8).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6hTuWALqJwAATDpDg9dpY638.png)
+![image (8).png](https://oss.ikeguang.com/image/202302081425276.png)
 
 当然，我们也可以在 filter 中使用 lambda 表达式：
 
@@ -381,7 +369,7 @@ SingleOutputStreamOperator<MyStreamingSource.Item> filterItems = items.filter(
 
 在介绍 KeyBy 函数之前，需要你理解一个概念：**KeyedStream**。 在实际业务中，我们经常会需要根据数据的某种属性或者单纯某个字段进行分组，然后对不同的组进行不同的处理。举个例子，当我们需要描述一个用户画像时，则需要根据用户的不同行为事件进行加权；再比如，我们在监控双十一的交易大盘时，则需要按照商品的品类进行分组，分别计算销售额。
 
-![image (9).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6hTzyAUKHxAAF12IHd3bQ582.png)
+![image (9).png](https://oss.ikeguang.com/image/202302081425169.png)
 
 我们在使用 KeyBy 函数时会把 DataStream 转换成为 KeyedStream，事实上 KeyedStream 继承了 DataStream，KeyedStream 中的元素会根据用户传入的参数进行分组。
 
@@ -419,7 +407,7 @@ SingleOutputStreamOperator<MyStreamingSource.Item> filterItems = items.filter(
 
 在生产环境中使用 KeyBy 函数时要十分注意！该函数会把数据按照用户指定的 key 进行分组，那么相同分组的数据会被分发到一个 subtask 上进行处理，在大数据量和 key 分布不均匀的时非常容易出现数据倾斜和反压，导致任务失败。
 
-![image (10).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16hT2CAUq4YAAIFumFqfTg398.png)
+![image (10).png](https://oss.ikeguang.com/image/202302081425655.png)
 
 常见的解决方式是把所有**数据加上随机前后缀**，这些我们会在后面的课时中进行深入讲解。
 
@@ -484,7 +472,7 @@ env.execute(jobName);
 
 我们直接运行程序，会发现奇怪的一幕：
 
-![image (11).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6hT9SATGmCAATvGBf2FXg156.png)
+![image (11).png](https://oss.ikeguang.com/image/202302081425891.png)
 
 从上图中可以看到，我们希望按照 Tuple3 的第一个元素进行聚合，并且按照第三个元素取最大值。结果如我们所料，的确是按照第三个元素大小依次进行的打印，但是结果却出现了一个这样的元素 (0,1,2)，这在我们的源数据中并不存在。
 
@@ -505,7 +493,7 @@ min 和 minBy 都会返回整个元素，只是 min 会根据用户指定的字�
 #### Reduce
 
 Reduce 函数的原理是，会在每一个分组的 keyedStream 上生效，它会按照用户自定义的聚合逻辑进行分组聚合。
-![image (12).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6hUAyAIaCwAAGkybBDznc114.png)
+![image (12).png](https://oss.ikeguang.com/image/202302081425589.png)
 
 例如：
 
@@ -531,7 +519,6 @@ data.add(new Tuple3<>(1,2,11));
 data.add(new Tuple3<>(1,2,13));
 
 
-
 DataStreamSource<Tuple3<Integer,Integer,Integer>> items = env.fromCollection(data);
 
 //items.keyBy(0).max(2).printToErr();
@@ -541,12 +528,9 @@ DataStreamSource<Tuple3<Integer,Integer,Integer>> items = env.fromCollection(dat
 SingleOutputStreamOperator<Tuple3<Integer, Integer, Integer>> reduce = items.keyBy(0).reduce(new ReduceFunction<Tuple3<Integer, Integer, Integer>>() {
 
     @Override
-
     public Tuple3<Integer,Integer,Integer> reduce(Tuple3<Integer, Integer, Integer> t1, Tuple3<Integer, Integer, Integer> t2) throws Exception {
 
         Tuple3<Integer,Integer,Integer> newTuple = new Tuple3<>();
-
-
 
         newTuple.setFields(0,0,(Integer)t1.getField(2) + (Integer) t2.getField(2));
 

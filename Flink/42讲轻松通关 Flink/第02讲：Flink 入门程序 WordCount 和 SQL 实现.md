@@ -16,7 +16,7 @@ Flink 一个以 Java 及 Scala 作为开发语言的开源大数据项目，通�
 
 关于 JDK、Maven 和 Git 的安装建议如下表所示：
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6ZFEeAILbpAABJUTt9qUU172.png)
+![img](https://oss.ikeguang.com/image/202302081418542.png)
 
 #### 工程创建
 
@@ -44,9 +44,9 @@ curl https://flink.apache.org/q/quickstart.sh | bash -s 1.10.0
 
 我们在终端直接执行该命令：
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6YJryAT7kwAAM4SZRfXz0562.png)
+![img](https://oss.ikeguang.com/image/202302081419023.png)
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16YJr2Afd28AAJHVzwSLKg287.png)
+![img](https://oss.ikeguang.com/image/202302081419500.png)
 
 直接出现 Build Success 信息，我们可以在本地目录看到一个已经生成好的名为 **quickstart** 的工程。
 
@@ -58,25 +58,16 @@ curl https://flink.apache.org/q/quickstart.sh | bash -s 1.10.0
 <dependency>
 
    <groupId>org.apache.flink</groupId>
-
    <artifactId>flink-java</artifactId>
-
    <version>${flink.version}</version>
-
    <!--<scope>provided</scope>-->
-
 </dependency>
 
 <dependency>
-
    <groupId>org.apache.flink</groupId>
-
    <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
-
    <version>${flink.version}</version>
-
    <!--<scope>provided</scope>-->
-
 </dependency>
 ```
 
@@ -142,7 +133,7 @@ ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
 我们可以直接右键运行一下 main 方法，在控制台会出现我们打印的计算结果：
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6YJr2ABr1NAAqJItsbg-g629.png)
+![img](https://oss.ikeguang.com/image/202302081419646.png)
 
 #### DataStream WordCount
 
@@ -157,36 +148,24 @@ public class StreamingJob {
 
     public static void main(String[] args) throws Exception {
 
-
-
         // 创建Flink的流式计算环境
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-
-
         // 监听本地9000端口
 
         DataStream<String> text = env.socketTextStream("127.0.0.1", 9000, "\n");
-
-
 
         // 将接收的数据进行拆分，分组，窗口计算并且进行聚合输出
 
         DataStream<WordWithCount> windowCounts = text
 
                 .flatMap(new FlatMapFunction<String, WordWithCount>() {
-
                     @Override
-
                     public void flatMap(String value, Collector<WordWithCount> out) {
-
                         for (String word : value.split("\\s")) {
-
                             out.collect(new WordWithCount(word, 1L));
-
                         }
-
                     }
 
                 })
@@ -198,7 +177,6 @@ public class StreamingJob {
                 .reduce(new ReduceFunction<WordWithCount>() {
 
                     @Override
-
                     public WordWithCount reduce(WordWithCount a, WordWithCount b) {
 
                         return new WordWithCount(a.word, a.count + b.count);
@@ -210,49 +188,28 @@ public class StreamingJob {
 
 
         // 打印结果
-
         windowCounts.print().setParallelism(1);
-
-
 
         env.execute("Socket Window WordCount");
 
     }
 
-
-
     // Data type for words with count
-
     public static class WordWithCount {
-
-
-
         public String word;
-
         public long count;
-
-
 
         public WordWithCount() {}
 
-
-
         public WordWithCount(String word, long count) {
-
             this.word = word;
-
             this.count = count;
 
         }
 
-
-
         @Override
-
         public String toString() {
-
             return word + " : " + count;
-
         }
 
     }
@@ -282,7 +239,7 @@ nc -lk 9000
 
 然后直接运行我们的 main 方法：
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6YJr2ARVjhAA2Bl2R-xW4872.png)
+![img](https://oss.ikeguang.com/image/202302081420687.png)
 
 可以看到，工程启动后开始监听 127.0.0.1 的 9000 端口。
 
@@ -338,39 +295,26 @@ SELECT word, COUNT(word) FROM table GROUP BY word;
 <dependency>
 
          <groupId>org.apache.flink</groupId>
-
          <artifactId>flink-java</artifactId>
-
          <version>1.10.0</version>
-
-     </dependency>
-
+</dependency>
 <dependency>
-
          <groupId>org.apache.flink</groupId>
-
          <artifactId>flink-streaming-java_2.11
-
          <version>1.10.0</version>
 
 </dependency>
 
 <dependency>
-
          <groupId>org.apache.flink</groupId>
-
          <artifactId>flink-table-api-java-bridge_2.11</artifactId>
-
          <version>1.10.0</version>
-
 </dependency>
 
 <dependency>
 
          <groupId>org.apache.flink</groupId>
-
          <artifactId>flink-table-planner-blink_2.11</artifactId>
-
          <version>1.10.0</version>
 
 </dependency>
@@ -378,19 +322,14 @@ SELECT word, COUNT(word) FROM table GROUP BY word;
 <dependency>
 
          <groupId>org.apache.flink</groupId>
-
          <artifactId>flink-table-planner_2.11</artifactId>
-
          <version>1.10.0</version>
 
 </dependency>
 
      <dependency>
-
          <groupId>org.apache.flink</groupId>
-
          <artifactId>flink-table-api-scala-bridge_2.11</artifactId>
-
          <version>1.10.0</version>
 
 </dependency>
@@ -417,10 +356,7 @@ String[] split = words.split("\\W+");
 
 ArrayList<WC> list = new ArrayList<>();
 
-
-
 for(String word : split){
-
     WC wc = new WC(word,1);
 
     list.add(wc);
@@ -441,17 +377,11 @@ Table table = fbTableEnv.fromDataSet(input, "word,frequency");
 
 table.printSchema();
 
-
-
 //注册为一个表
 
 fbTableEnv.createTemporaryView("WordCount", table);
 
-
-
 Table table02 = fbTableEnv.sqlQuery("select word as word, sum(frequency) as frequency from WordCount GROUP BY word");
-
-
 
 //将表转换DataSet
 
@@ -467,34 +397,21 @@ ds3.printToErr();
 ```java
 public class WordCountSQL {
 
-
-
     public static void main(String[] args) throws Exception{
 
-
-
         //获取运行环境
-
         ExecutionEnvironment fbEnv = ExecutionEnvironment.getExecutionEnvironment();
 
         //创建一个tableEnvironment
-
         BatchTableEnvironment fbTableEnv = BatchTableEnvironment.create(fbEnv);
 
-
-
         String words = "hello flink hello lagou";
-
-
 
         String[] split = words.split("\\W+");
 
         ArrayList<WC> list = new ArrayList<>();
 
-
-
         for(String word : split){
-
             WC wc = new WC(word,1);
 
             list.add(wc);
@@ -503,25 +420,17 @@ public class WordCountSQL {
 
         DataSet<WC> input = fbEnv.fromCollection(list);
 
-
-
         //DataSet 转sql, 指定字段名
 
         Table table = fbTableEnv.fromDataSet(input, "word,frequency");
 
         table.printSchema();
 
-
-
         //注册为一个表
 
         fbTableEnv.createTemporaryView("WordCount", table);
 
-
-
         Table table02 = fbTableEnv.sqlQuery("select word as word, sum(frequency) as frequency from WordCount GROUP BY word");
-
-
 
         //将表转换DataSet
 
@@ -536,29 +445,19 @@ public class WordCountSQL {
     public static class WC {
 
         public String word;
-
         public long frequency;
-
-
 
         public WC() {}
 
-
-
         public WC(String word, long frequency) {
-
             this.word = word;
 
             this.frequency = frequency;
 
         }
 
-
-
         @Override
-
         public String toString() {
-
             return  word + ", " + frequency;
 
         }
@@ -570,7 +469,7 @@ public class WordCountSQL {
 
 我们直接运行该程序，在控制台可以看到输出结果：
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16YJr6AdfRiAAt-hgEdyno504.png)
+![img](https://oss.ikeguang.com/image/202302081421589.png)
 
 ### 总结
 

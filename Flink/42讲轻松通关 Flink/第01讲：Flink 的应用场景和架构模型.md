@@ -32,7 +32,7 @@ Flink 自从 2019 年初开源以来，迅速成为大数据实时计算领域�
 
 > ......
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16Wh3yADuPxAA_xO2m12fQ446.png)
+![img](https://oss.ikeguang.com/image/202302081412358.png)
 
 
 
@@ -52,7 +52,7 @@ Apache Flink 同时支持流式及批量分析应用，这就是我们所说的*
 
 
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6Wh3yAcvdXAADY_kSRPns927.png)
+![img](https://oss.ikeguang.com/image/202302081414429.png)
 
 
 
@@ -77,7 +77,7 @@ Flink 在实时数仓和实时 ETL 中有天然的优势：
 
 
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6Wq2uAUJcxAACgJTDbxL0486-20210222180940331.png)
+![img](https://oss.ikeguang.com/image/202302081415068.png)
 
 ### **事件驱动型应用**
 
@@ -99,7 +99,7 @@ Flink 在实时数仓和实时 ETL 中有天然的优势：
 
 
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16Wh32AUUimAAJw08rGsDg561.png)
+![img](https://oss.ikeguang.com/image/202302081415203.png)
 
 
 
@@ -126,7 +126,7 @@ Flink 的主要特性包括：批流一体、Exactly-Once、强大的状态管�
 
 ### Flink 的分层模型
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6Wh32AdW-GAAByQ5O59DM602.png)
+![img](https://oss.ikeguang.com/image/202302081415292.png)
 
 
 
@@ -152,7 +152,7 @@ Flink 程序的基础构建模块是**流**（Streams）与**转换**（Transfor
 
 
 
-​    ![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16WkKSAAUCCAAFCvLaaG3Q752.png)
+​    ![img](https://oss.ikeguang.com/image/202302081415142.png)
 
 
 
@@ -174,7 +174,7 @@ Flink 程序的基础构建模块是**流**（Streams）与**转换**（Transfor
 
 
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Cgq2xl6Wh32AaxQxAAC0iHRLRUQ170.png)
+![img](https://oss.ikeguang.com/image/202302081415747.png)
 
 
 
@@ -196,7 +196,7 @@ Flink 支持了多种窗口模型比如**滚动窗口（Tumbling Window）、滑
 
 
 
-​    ![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqah16WkLOAd3yEAACExkPjYaQ952-20210222180941073.png)
+​    ![img](https://oss.ikeguang.com/image/202302081415055.png)
 
 
 
@@ -208,7 +208,7 @@ Flink 支持了多种窗口模型比如**滚动窗口（Tumbling Window）、滑
 
 
 
-![img](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgoCgV6WkL6AH1phAAFLHTxD7E8180-20210222180941139.png)
+![img](https://oss.ikeguang.com/image/202302081415457.png)
 
 
 

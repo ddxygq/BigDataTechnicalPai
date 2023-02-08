@@ -33,7 +33,7 @@ Local 模式是 Flink 提供的最简单部署模式，一般用来本地测试�
 ➜  [SoftWare]# tar -zxvf flink-1.10.0-bin-scala_2.11.tgz
 ```
 
-![image.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F6qnX-AXVz4AAXkr_II7Uk292.png)
+![image.png](https://oss.ikeguang.com/image/202302081427366.png)
 
 上图则为解压完成后的目录情况。
 
@@ -45,17 +45,17 @@ Local 模式是 Flink 提供的最简单部署模式，一般用来本地测试�
 ➜  [flink-1.10.0]# ./bin/start-cluster.sh
 ```
 
-![image (1).png](https://s0.lgstatic.com/i/image/M00/00/E5/CgqCHl6qnZCAQqOwAABgwtB9hH0313.png)
+![image (1).png](https://oss.ikeguang.com/image/202302081427974.png)
 
 上图显示我们的 Flink 启动成功。
 
 我们直接访问本地的 8081 端口，可以看到 Flink 的后台管理界面，验证 Flink 是否成功启动。
 
-![image (2).png](https://s0.lgstatic.com/i/image/M00/00/E5/CgqCHl6qnaCAbUKaAAKV9F8pjbo760.png)
+![image (2).png](https://oss.ikeguang.com/image/202302081427181.png)
 
 可以看到 Flink 已经成功启动。当然，我们也可以查看运行日志来确认 Flink 是不是成功启动了，在 log 目录下有程序的启动日志：
 
-![image (3).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl6qnaiAeipNAARWVTF0UQk225.png)
+![image (3).png](https://oss.ikeguang.com/image/202302081427750.png)
 
 我们尝试提交一个测试任务：
 
@@ -65,11 +65,11 @@ Local 模式是 Flink 提供的最简单部署模式，一般用来本地测试�
 ./bin/flink run examples/batch/WordCount.jar
 ```
 
-![image (4).png](https://s0.lgstatic.com/i/image/M00/00/E5/Ciqc1F6qnbmAD0utAAzuDnzw72A207.png)
+![image (4).png](https://oss.ikeguang.com/image/202302081427266.png)
 
 我们在控制台直接看到输出。同样，在 Flink 的后台管理界面 Completed Jobs 一栏可以看到刚才提交执行的程序：
 
-![image (5).png](https://s0.lgstatic.com/i/image/M00/00/E5/CgqCHl6qncKAQDD_AAJMeFS4wKY573.png)
+![image (5).png](https://oss.ikeguang.com/image/202302081427384.png)
 
 #### Standalone 模式
 
@@ -81,7 +81,7 @@ Standalone 模式是集群模式的一种，但是这种模式一般并不运行
 
 我们在 3 台虚拟机之间搭建 standalone 集群：
 
-![图片1.png](https://s0.lgstatic.com/i/image/M00/00/F3/CgqCHl6quoyADDQ0AAA9akbk4-I222.png)
+![图片1.png](https://oss.ikeguang.com/image/202302081428067.png)
 
 在 master 节点，将 [Apache Flink 1.10.0 for Scala 2.11](https://www.apache.org/dyn/closer.lua/flink/flink-1.10.0/flink-1.10.0-bin-scala_2.11.tgz) 包进行解压：
 
@@ -95,7 +95,7 @@ Standalone 模式是集群模式的一种，但是这种模式一般并不运行
 
 我们修改 conf 目录下的 flink-conf.yaml:
 
-![image (6).png](https://s0.lgstatic.com/i/image/M00/00/E5/CgqCHl6qniOAVwxQAAflJmA3UHM342.png)
+![image (6).png](https://oss.ikeguang.com/image/202302081428429.png)
 
 flink-conf.yaml 文件中有大量的配置参数，我们挑选其中必填的最基本参数进行修改：
 
@@ -114,7 +114,7 @@ io.tmp.dirs: /tmp
 
 它们分别代表：
 
-![图片2.png](https://s0.lgstatic.com/i/image/M00/00/F3/CgqCHl6quqSASHj3AADIa3BQwv8756.png)
+![图片2.png](https://oss.ikeguang.com/image/202302081428258.png)
 
 如果你对其他的参数有兴趣的话，可以直接参考[官网](https://ci.apache.org/projects/flink/flink-docs-release-1.10/zh/ops/config.html)。接下来我们修改 conf 目录下的 master 和 slave 文件。vim master，将内容修改为：
 
@@ -159,7 +159,7 @@ export PATH=$PATH:$FLINK_HOME/bin
 
 #### On Yarn 模式和 HA 配置
 
-![image (7).png](https://s0.lgstatic.com/i/image/M00/00/E5/CgqCHl6qnpCANL2_AADQZ7nyUOQ246.png)
+![image (7).png](https://oss.ikeguang.com/image/202302081428782.png)
 
 上图是 Flink on Yarn 模式下，Flink 和 Yarn 的交互流程。Yarn 是 Hadoop 三驾马车之一，主要用来做资源管理。我们在 Flink on Yarn 模式中也是借助 Yarn 的资源管理优势，需要在三个节点中配置 YARN_CONF_DIR、HADOOP_CONF_DIR、HADOOP_CONF_PATH 中的任意一个环境变量即可。
 
@@ -173,7 +173,7 @@ export PATH=$PATH:$FLINK_HOME/bin
 
 我们使用 5 台虚拟机搭建 on yarn 的高可用集群：
 
-![图片3.png](https://s0.lgstatic.com/i/image/M00/00/F3/Ciqc1F6qur-ASlHKAABf4B_B4y0984.png)
+![图片3.png](https://oss.ikeguang.com/image/202302081428373.png)
 
 如果你在使用 Flink 的最新版本 1.10.0 时，那么需要在本地安装 Hadoop 环境并进行下面的操作。
 
@@ -189,7 +189,7 @@ source /etc/profile
 
 其次，下载对应的的依赖包，并将对应的 Hadoop 依赖复制到 flink 的 lib 目录下，对应的 hadoop 依赖可以在[这里](https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/)下载。
 
-![image (8).png](https://s0.lgstatic.com/i/image/M00/00/E6/CgqCHl6qns2AQ4meAAI4xmqqrdU331.png)
+![image (8).png](https://oss.ikeguang.com/image/202302081428318.png)
 
 与 standalone 集群不同的是，我们需要修改 flink-conf.yaml 文件中的一些配置：
 
@@ -201,7 +201,7 @@ high-availability.zookeeper.quorum: slave01:2181,slave02:2181,slave03:2181
 
 它们分别代表：
 
-![图片4.png](https://s0.lgstatic.com/i/image/M00/00/F3/Ciqc1F6qutGAWg_3AABkGykejY0686.png)
+![图片4.png](https://oss.ikeguang.com/image/202302081428860.png)
 
 然后分别修改 master、slave、zoo.cfg 三个配置文件。
 vim master，将内容修改为：

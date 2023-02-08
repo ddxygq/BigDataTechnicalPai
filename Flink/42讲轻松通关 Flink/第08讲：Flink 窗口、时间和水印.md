@@ -35,7 +35,7 @@ Flink 中的时间分为三种：
 
 下面的图详细说明了这三种时间的区别和联系：
 
-![image (18).png](https://s0.lgstatic.com/i/image/M00/07/44/CgqCHl65D6SAKNl-AADISYD73gQ276.png)
+![image (18).png](https://oss.ikeguang.com/image/202302081430090.png)
 
 #### 事件时间（Event Time）
 
@@ -63,7 +63,7 @@ stream
 
 Flink 注册 EventTime 是通过 InternalTimerServiceImpl.registerEventTimeTimer 来实现的：
 
-![image (19).png](https://s0.lgstatic.com/i/image/M00/07/44/CgqCHl65D6-AJTx1AAC_jnA2dzE629.png)
+![image (19).png](https://oss.ikeguang.com/image/202302081430682.png)
 
 可以看到，该方法有两个入参：namespace 和 time，其中 time 是触发定时器的时间，namespace 则被构造成为一个 TimerHeapInternalTimer 对象，然后将其放入 KeyGroupedInternalPriorityQueue 队列中。
 
@@ -104,14 +104,14 @@ env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
 
 同样，也可以在源码中找到 Flink 是如何注册和使用 Processing Time 的。
 
-![image (20).png](https://s0.lgstatic.com/i/image/M00/07/44/Ciqc1F65D7yANHLJAAGNDGNArrs530.png)
+![image (20).png](https://oss.ikeguang.com/image/202302081430665.png)
 
 registerProcessingTimeTimer() 方法为我们展示了如何注册一个 ProcessingTime 定时器：
 每当一个新的定时器被加入到 processingTimeTimersQueue 这个优先级队列中时，如果新来的 Timer 时间戳更小，那么更小的这个 Timer 会被重新注册 ScheduledThreadPoolExecutor 定时执行器上。
 
 Processing Time 被触发是在 InternalTimeServiceImpl 的 onProcessingTime() 方法中：
 
-![image (21).png](https://s0.lgstatic.com/i/image/M00/07/44/CgqCHl65D8SAchccAAGd410eR8s589.png)
+![image (21).png](https://oss.ikeguang.com/image/202302081431100.png)
 
 一直循环获取时间小于入参 time 的所有定时器，并运行 triggerTarget 的 onProcessingTime() 方法。
 
@@ -125,15 +125,15 @@ Processing Time 被触发是在 InternalTimeServiceImpl 的 onProcessingTime() �
 
 Ingestion Time 的时间类型生成相关的代码在 AutomaticWatermarkContext 中：
 
-![image (22).png](https://s0.lgstatic.com/i/image/M00/07/44/Ciqc1F65D9GAS3kXAAN7PTTF3NU199.png)
+![image (22).png](https://oss.ikeguang.com/image/202302081431683.png)
 
-![image (23).png](https://s0.lgstatic.com/i/image/M00/07/44/Ciqc1F65D9eAVZoGAAO5hF8UgGw900.png)
+![image (23).png](https://oss.ikeguang.com/image/202302081431475.png)
 
 我们可以看出，这里会设置一个 watermark 发送定时器，在 watermarkInterval 时间之后触发。
 
 处理数据的代码在 processAndCollect() 方法中：
 
-![image (24).png](https://s0.lgstatic.com/i/image/M00/07/44/CgqCHl65D-GAN_LZAAE7PAqT6I4490.png)
+![image (24).png](https://oss.ikeguang.com/image/202302081431055.png)
 
 ### 水印（WaterMark）
 
@@ -165,7 +165,7 @@ Flink 提供了 assignTimestampsAndWatermarks() 方法来实现水印的提取�
 
 整体的类图如下：
 
-![image (25).png](https://s0.lgstatic.com/i/image/M00/07/44/Ciqc1F65D-2AKmZ2AAITdhcoNis465.png)
+![image (25).png](https://oss.ikeguang.com/image/202302081431343.png)
 
 #### 水印种类
 
@@ -227,13 +227,9 @@ Flink 在这里提供了 3 种提取 EventTime() 的方法，分别是：
     }
 
 
-
     public abstract long extractTimestamp(T element);
 
-
-
     @Override
-
     public final Watermark getCurrentWatermark() {
 
         long potentialWM = currentMaxTimestamp - maxOutOfOrderness;
@@ -248,10 +244,7 @@ Flink 在这里提供了 3 种提取 EventTime() 的方法，分别是：
 
     }
 
-
-
     @Override
-
     public final long extractTimestamp(T element, long previousElementTimestamp) {
 
         long timestamp = extractTimestamp(element);
@@ -278,10 +271,7 @@ Flink 在这里提供了 3 种提取 EventTime() 的方法，分别是：
 ```
 data.assignTimestampsAndWatermarks(new AssignerWithPunctuatedWatermarks<UserActionRecord>() {
 
-
-
       @Override
-
       public Watermark checkAndGetNextWatermark(MyData data, long l) {
 
         return data.getRecord.startsWith("watermark") ? new Watermark(l) : null;
@@ -289,9 +279,7 @@ data.assignTimestampsAndWatermarks(new AssignerWithPunctuatedWatermarks<UserActi
       }
 
 
-
       @Override
-
       public long extractTimestamp(MyData data, long l) {
 
         return data.getTimestamp();
@@ -299,8 +287,6 @@ data.assignTimestampsAndWatermarks(new AssignerWithPunctuatedWatermarks<UserActi
       }
 
     });
-
-
 
 class MyData{
 
@@ -347,11 +333,7 @@ class MyData{
 ```
 public static void main(String[] args) throws Exception {
 
-
-
     StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment();
-
-
 
     //设置为eventtime事件类型
 
@@ -462,7 +444,7 @@ flink,1588659185000
 
 我们用 nc -lk 9000 命令启动端口，然后输出上述试验数据，看到控制台的输出：
 
-![image (26).png](https://s0.lgstatic.com/i/image/M00/07/44/CgqCHl65EAGATIBjAAMEGkxkMKY790.png)
+![image (26).png](https://oss.ikeguang.com/image/202302081431189.png)
 
 很明显，可以看到当第五条数据出现后，窗口触发了计算。
 
@@ -496,7 +478,7 @@ flink,1588659190000
 
 其中的 flink,1588659180000 为乱序消息，来看看会发生什么？
 
-![image (27).png](https://s0.lgstatic.com/i/image/M00/07/44/CgqCHl65EAmAMMGBAAEzvkTnjK8833.png)
+![image (27).png](https://oss.ikeguang.com/image/202302081431006.png)
 
 可以看到，时间戳为 1588659180000 的这条消息并没有被处理，因为此时代码中的允许乱序时间 private Long maxOutOfOrderness = 0L 即不处理乱序消息。
 
@@ -504,7 +486,7 @@ flink,1588659190000
 
 可以看到，我们把所有数据发送出去仅触发了一次窗口计算，并且输出的结果中 watermark 的时间往后顺延了 5 秒钟。所以，maxOutOfOrderness 的设置会影响窗口的计算时间和水印的时间，如下图所示：
 
-![image (28).png](https://s0.lgstatic.com/i/image/M00/07/44/Ciqc1F65EBCARpb-AAEFtbvAUWk070.png)
+![image (28).png](https://oss.ikeguang.com/image/202302081431349.png)
 
 假如我们继续向 socket 中发送数据：
 
@@ -524,7 +506,7 @@ flink,1588659195000
 
 可以看到下一次窗口的触发时间：
 
-![image (29).png](https://s0.lgstatic.com/i/image/M00/07/44/Ciqc1F65EBeAWtGuAAFcnwH2ju4157.png)
+![image (29).png](https://oss.ikeguang.com/image/202302081431858.png)
 
 在这里要特别说明，Flink 在用时间 + 窗口 + 水印来解决实际生产中的数据乱序问题，有如下的触发条件：
 

@@ -45,7 +45,7 @@ Exactly-Once 是 Flink、Spark 等流处理系统的核心特性之一，这种�
 #### Barrier
 Flink 分布式快照的核心元素之一是 Barrier（数据栅栏），我们也可以把 Barrier 简单地理解成一个标记，该标记是严格有序的，并且随着数据流往下流动。每个 Barrier 都带有自己的 ID，Barrier 极其轻量，并不会干扰正常的数据处理。
 
-![image.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7UoTqARTX3AADBrXbANRg092.png)
+![image.png](https://oss.ikeguang.com/image/202302081528463.png)
 
 如上图所示，假如我们有一个从左向右流动的数据流，Flink 会依次生成 snapshot 1、 snapshot 2、snapshot 3……Flink 中有一个专门的“协调者”负责收集每个 snapshot 的位置信息，这个“协调者”也是高可用的。
 
@@ -53,7 +53,7 @@ Barrier 会随着正常数据继续往下流动，每当遇到一个算子，算
 
 这里就会有一个问题，因为 Flink 运行在分布式环境中，一个 operator 的上游会有很多流，每个流的 barrier n 到达的时间不一致怎么办？这里 Flink 采取的措施是：快流等慢流。
 
-![image (1).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7UoW6AaNdLAAID6wE6jtw020.png)
+![image (1).png](https://oss.ikeguang.com/image/202302081528105.png)
 
 拿上图的 barrier n 来说，其中一个流到的早，其他的流到的比较晚。当第一个 barrier n到来后，当前的 operator 会继续等待其他流的 barrier n。直到所有的barrier n 到来后，operator 才会把所有的数据向下发送。
 
@@ -76,7 +76,7 @@ Barrier 会随着正常数据继续往下流动，每当遇到一个算子，算
 
 ### Flink-Kafka Exactly-once
 
-![image (2).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7UoY2AUTlYAAEDxOHYzPk641.png)
+![image (2).png](https://oss.ikeguang.com/image/202302081528457.png)
 
 
 如上图所示，我们用 Kafka-Flink-Kafka 这个案例来介绍一下实现“端到端精确一次”语义的过程，整个过程包括：

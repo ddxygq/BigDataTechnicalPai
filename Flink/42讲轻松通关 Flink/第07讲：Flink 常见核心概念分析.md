@@ -71,7 +71,7 @@ final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
 我们直接运行该程序，在控制台可以看到如下输出：
 
-![image (13).png](https://s0.lgstatic.com/i/image/M00/04/21/CgqCHl6zuaGAR5OsAAGtRKBDu4Y342.png)
+![image (13).png](https://oss.ikeguang.com/image/202302081429356.png)
 
 ![image (14).png](https://s0.lgstatic.com/i/image/M00/04/21/CgqCHl6zuaeAT1R2AAErtYZmnPI438.png)
 
@@ -144,7 +144,7 @@ restart-strategy: fixed-delay
 
 固定延迟重启策略模式需要指定两个参数，首先 Flink 会根据用户配置的重试次数进行重试，每次重试之间根据配置的时间间隔进行重试，如下表所示：
 
-![图片1.png](https://s0.lgstatic.com/i/image/M00/04/25/Ciqc1F6zvBaARD__AABFxgqE5MQ838.png)
+![图片1.png](https://oss.ikeguang.com/image/202302081429760.png)
 
 举个例子，假如我们需要任务重试 3 次，每次重试间隔 5 秒，那么需要进行一下配置：
 
@@ -182,7 +182,7 @@ restart-strategy: failure-rate
 
 这种重启模式需要指定三个参数，如下表所示。失败率重启策略在 Job 失败后会重启，但是超过失败率后，Job 会最终被认定失败。在两个连续的重启尝试之间，重启策略会等待一个固定的时间。
 
-![图片2.png](https://s0.lgstatic.com/i/image/M00/04/25/CgqCHl6zvB-AEMU9AAB263VH7p0380.png)
+![图片2.png](https://oss.ikeguang.com/image/202302081429547.png)
 
 这种策略的配置理解较为困难，我们举个例子，假如 5 分钟内若失败了 3 次，则认为该任务失败，每次失败的重试间隔为 5 秒。
 
@@ -239,7 +239,7 @@ DataSet<Tuple2<String, Integer>> counts =
 
 复制代码
 
-```
+```java
 final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 env.setParallelism(5);
 ```

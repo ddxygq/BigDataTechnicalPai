@@ -36,11 +36,11 @@
 
 Flink 中的 JobManager、WebServer 等组件都需要高可用保障，并且 Flink 还需要进行 Checkpoint 元数据的持久化操作。与 Flink HA 相关的类图如下图所示，我们跟随源码简单看一下 Flink HA 的实现。
 
-![diagram.jpg](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7Q1lmAZO5oAAqBu54ElyQ687.jpg)
+![diagram.jpg](https://oss.ikeguang.com/image/202302081526289.jpeg)
 
 HighAvailabilityMode 类中定义了三种高可用性模式枚举，如下图所示：
 
-![image.png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7Q1mCADaqOAALJUFftWKo129.png)
+![image.png](https://oss.ikeguang.com/image/202302081526398.png)
 
 NONE：非 HA 模式
 
@@ -50,7 +50,7 @@ FACTORY_CLASS：自定义 HA 工厂类，该类需要实现 HighAvailabilityServ
 
 具体的高可用实例对象创建则在 HighAvailabilityServicesUtils 类中有体现，如下图所示：
 
-![image (1).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/CgqCHl7Q1miANq_5AAQ2nZRlnlc327.png)
+![image (1).png](https://oss.ikeguang.com/image/202302081526600.png)
 
 创建 HighAvailabilityServices 的实例方法如下：
 
@@ -112,7 +112,7 @@ public interface LeaderElectionService {
 
 Standalone 模式下的 HA 配置，Flink 依赖 ZooKeeper 实现。ZooKeeper 集群独立于 Flink 集群之外，主要被用来进行 Leader 选举和轻量级状态一致性存储。更多关于 ZooKeeper 的资料可以直接点击这里查看。
 
-![image (2).png](https://kingcall.oss-cn-hangzhou.aliyuncs.com/blog/img/Ciqc1F7Q1nWAZaiVAACMrtuafks425.png)
+![image (2).png](https://oss.ikeguang.com/image/202302081526436.png)
 
 #### 文件配置
 在这里我们要特别说明的是，Flink 自带了一个简单的 ZooKeeper 集群，并且提供了一键启动的脚本。在实际生产环境中建议自己搭建 ZooKeeper 集群，以方便我们进行配置管理。

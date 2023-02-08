@@ -43,7 +43,7 @@ Flink 的状态数据可以存在 JVM 的堆内存或者堆外内存中，当然
 
 我们在之前的课时中提到过 KeyedStream 的概念，并且介绍过 KeyBy 这个算子的使用。在 Flink 中，根据数据集是否按照某一个 Key 进行分区，将状态分为 **Keyed State** 和 **Operator State**（Non-Keyed State）两种类型。
 
-![image (4).png](https://s0.lgstatic.com/i/image/M00/09/8E/Ciqc1F68r42AcNUaAAIJcKJ8in8203.png)
+![image (4).png](https://oss.ikeguang.com/image/202302081520910.png)
 
 如上图所示，Keyed State 是经过分区后的流上状态，每个 Key 都有自己的状态，图中的八边形、圆形和三角形分别管理各自的状态，并且只有指定的 key 才能访问和更新自己对应的状态。
 
@@ -51,13 +51,13 @@ Flink 的状态数据可以存在 JVM 的堆内存或者堆外内存中，当然
 
 但是有一点需要说明的是，无论是 Keyed State 还是 Operator State，Flink 的状态都是基于本地的，即每个算子子任务维护着这个算子子任务对应的状态存储，算子子任务之间的状态不能相互访问。
 
-![image (5).png](https://s0.lgstatic.com/i/image/M00/09/8E/Ciqc1F68r6OAMS0kAADjsuTilgw677.png)
+![image (5).png](https://oss.ikeguang.com/image/202302081520015.png)
 
 我们可以看一下 State 的类图，对于 Keyed State，Flink 提供了几种现成的数据结构供我们使用，State 主要有四种实现，分别为 ValueState、MapState、AppendingState 和 ReadOnlyBrodcastState ，其中 AppendingState 又可以细分为ReducingState、AggregatingState 和 ListState。
 
 那么我们怎么访问这些状态呢？Flink 提供了 StateDesciptor 方法专门用来访问不同的 state，类图如下：
 
-![image (6).png](https://s0.lgstatic.com/i/image/M00/09/8E/Ciqc1F68r7SAEHpKAAEDYQLIy7g320.png)
+![image (6).png](https://oss.ikeguang.com/image/202302081520713.png)
 
 下面演示一下如何使用 StateDesciptor 和 ValueState，代码如下：
 
@@ -124,7 +124,7 @@ public static void main(String[] args) throws Exception {
 
 我们这里的输出条件为，每当第一个元素的和达到二，就把第二个元素的和与第一个元素的和相除，最后输出。我们直接运行，在控制台可以看到结果：
 
-![image (7).png](https://s0.lgstatic.com/i/image/M00/09/8E/Ciqc1F68r9qAIf_wAAKeTonxZ_A361.png)
+![image (7).png](https://oss.ikeguang.com/image/202302081521459.png)
 
 Operator State 的实际应用场景不如 Keyed State 多，一般来说它会被用在 Source 或 Sink 等算子上，用来保存流入数据的偏移量或对输出数据做缓存，以保证 Flink 应用的 Exactly-Once 语义。
 
@@ -143,11 +143,11 @@ StateTtlConfig ttlConfig = StateTtlConfig
 descriptor.enableTimeToLive(ttlConfig);
 ```
 
-![image (8).png](https://s0.lgstatic.com/i/image/M00/09/8F/Ciqc1F68r_qAWOyWAAGioB7yXIY832.png)
+![image (8).png](https://oss.ikeguang.com/image/202302081521096.png)
 
 StateTtlConfig 这个类中有一些配置需要我们注意：
 
-![image (9).png](https://s0.lgstatic.com/i/image/M00/09/8F/Ciqc1F68sAKAUCl3AAHPXrzZa_Y589.png)
+![image (9).png](https://oss.ikeguang.com/image/202302081521554.png)
 
 UpdateType 表明了过期时间什么时候更新，而对于那些过期的状态，是否还能被访问则取决于 StateVisibility 的配置。
 
